@@ -1,5 +1,4 @@
 node_modules
-dist
 .ssh
 initial_db_content
 package-lock.json
