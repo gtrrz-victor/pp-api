@@ -17,3 +17,4 @@ npm install
 npm run build
 #start our node app in the background
 node dist/index.js > app.out.log 2> app.err.log < /dev/null & 
+
