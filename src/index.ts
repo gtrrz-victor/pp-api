@@ -9,12 +9,16 @@ const app = express();
 app.use(express.json())
 app.use(cors())
 
+app.get("/health", (_, res: Response) => {
+    res.send()
+})
+
 app.get("/pptournament/groups", async (_, res: Response) => {
-    try{
-        const {groups} = await tournamentService.readTournament()
+    try {
+        const { groups } = await tournamentService.readTournament()
         res.type('application/json')
-        res.send({groups});
-    }catch(error){
+        res.send({ groups });
+    } catch (error) {
         res.status(500)
         res.send(error)
     }
@@ -27,15 +31,15 @@ app.patch("/pptournament/groups/:groupId/matchs/:matchId", async (req: Request, 
         res.send("result should be an array of 2 numbers")
         return
     }
-    if (matchResult.result.reduce((a,b)=>a+b,0)>3) {
+    if (matchResult.result.reduce((a, b) => a + b, 0) > 3) {
         res.status(400)
         res.send("result should not exceed 3 played sets as total")
         return
     }
-    try{
-        await tournamentService.addResultMatch(req.params.groupId,req.params.matchId,matchResult)
+    try {
+        await tournamentService.addResultMatch(req.params.groupId, req.params.matchId, matchResult)
         res.end();
-    }catch(error:any){
+    } catch (error: any) {
         console.log(error)
         res.status(400)
         res.send(`Error: ${error}`)
