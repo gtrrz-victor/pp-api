@@ -21,6 +21,9 @@ const port = process.env.SERVER_PORT;
 const app = (0, express_1.default)();
 app.use(express_1.default.json());
 app.use((0, cors_1.default)());
+app.get("/health", (_, res) => {
+    res.send();
+});
 app.get("/pptournament/groups", (_, res) => __awaiter(void 0, void 0, void 0, function* () {
     try {
         const { groups } = yield tournamentService_1.default.readTournament();
